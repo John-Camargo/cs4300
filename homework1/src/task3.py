@@ -59,5 +59,5 @@ def sum_one_to_num(x=100):
     return(sum)
 
 # pos_neg_zero(10)
-prime_numbers()
+# prime_numbers()
 # sum_one_to_num()
