@@ -42,12 +42,19 @@ def prime_numbers(x=10):
     # return list of first x primes
     return(prime_list)
 
+# function that computes the sum of all numbers from one to x (where x here is 100)
 def sum_one_to_num(x=100):
+    # i is the start of the summation (1)
     i = 1
+    # var for total summation
     sum = 0
+    # while i (counter) is not 100, continue looping and adding
     while i <= x:
+        # add current number to total sum
         sum += i
+        # increment i (counter)
         i += 1
+    # print and return total sum
     print(sum)
     return(sum)
 
