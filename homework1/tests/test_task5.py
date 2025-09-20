@@ -49,7 +49,7 @@ def test_get_student_dict():
     student_db = get_student_dict()
     assert student_dict == student_db
 
-# function that tests print_books() by capturing stdout and comparing that to the list of books (from get_books, in string form)
+# function that tests print_books() by capturing stdout and comparing that to the list of books (from get_books(), in string form)
 def test_print_student_dict(capsys):
     print_student_dict()
     # capture stdout/stderr (from print_student_dict()) using capsys
@@ -57,9 +57,22 @@ def test_print_student_dict(capsys):
     # compare stdout (using captured.out) and the string form of get_student_dict() (dictionary)
     assert captured.out == f"{get_student_dict()}\n"
 
+# fucntion that tests if get_id_by_name() returns valid ids from a given name in a student dictionary
 def test_get_id_by_name():
+    # get the student dictionary using get_student_dict()
     student_dict = get_student_dict()
+    # test that a valid name input returns a valid corresponding id
     assert get_id_by_name("Bo Nix") == 10
+    # tests for invalid input (e.g. non-existent name, wrong input type)
     assert get_id_by_name("Russel Wilson") == "No student with that name."
+    assert get_id_by_name(10) == "No student with that name."
 
-#def test_get_name_by_id():
+# fucntion that tests if get_name_by_id() returns valid names from a given id in a student dictionary
+def test_get_name_by_id():
+    # get the student dictionary using get_student_dict()
+    student_dict = get_student_dict()
+    # test that a valid id input returns a valid corresponding name
+    assert get_name_by_id(14) == "Courtland Sutton"
+    # tests for invalid input (e.g. non-existent id, wrong input type)
+    assert get_name_by_id(99) == "No student with that id."
+    assert get_name_by_id("Ten") == "No student with that id."
