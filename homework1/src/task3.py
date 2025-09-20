@@ -18,7 +18,7 @@ def prime_numbers(x=10):
     # var to determine when to stop loop
     count = 0
     # loop/range accounts for all possible primes bounded by x^2
-    #   - if x = 10, range = 2 - 100 s.t. all primes are within range (10th prime = 29)
+    #   - if x = 10, range = 2 - 100 s.t. all primes are within range (i.e. 10th prime = 29)
     for num in range(2, (x * x)):
         # boolean flag representing if the current number in the given range is prime or not
         prime = True
