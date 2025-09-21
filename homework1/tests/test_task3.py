@@ -4,6 +4,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../s
 
 from task3 import pos_neg_zero, prime_numbers, sum_one_to_num
 
+# 
 def test_pos_neg_zero():
     assert pos_neg_zero(5) == 1
     assert pos_neg_zero(-5) == -1
