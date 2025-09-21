@@ -69,13 +69,3 @@ def test_add_arrays():
     # ensure array results consistent
     assert new_arr[random.randint(0,1)][random.randint(0,1)] == 30
         
-# test_add_arrays()
-
-    
- 
- 
-    # # wrong type which makes create_2d_array output error message, which is then passed to print_array()
-    # print_array(arr2)
-    # captured = capsys.readouterr()
-    # assert captured.out == 
-
