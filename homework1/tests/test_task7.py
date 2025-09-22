@@ -1,10 +1,12 @@
+# import sys and os to establish path to task file
+# - also import numpy to test features and random to test output array from add_array()
 import sys, os, numpy as np, random
 
+# establish path to task file for testing
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
+# import all functions from task file
 from task7 import create_2d_array, print_array, add_arrays
-
-
 
 # fucntion that tests the create_2d_array() function for correct output, array dimensions, and size
 def test_create_2d_array():

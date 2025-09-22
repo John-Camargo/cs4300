@@ -1,7 +1,10 @@
+# import sys and os to establish path to task file
 import sys, os
 
+# establish path to task file for testing
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
+# import all functions from task file
 from task4 import calculate_discount
 
 # function that tests calculate_dicount with different inputs

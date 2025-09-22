@@ -64,7 +64,7 @@ def get_name_by_id(id: int):
 # print_student_dict(student_dict)
 # print(get_student_dict(student_dict))
 # print(get_id_by_name("Bo Nix"))
-# print(get_id_by_name("Bo Ni"))
+# print(get_id_by_name("Bo N"))
 # print(get_name_by_id(10))
 # print(first_three_books(get_books()))
 

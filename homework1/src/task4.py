@@ -13,7 +13,3 @@ def calculate_discount(price=None, percentage=None):
     else:
         return 0
     
-
-# calculate_discount(100, 25)
-# calculate_discount(505.50, 17.5)
-# calculate_discount(100, 12.5)

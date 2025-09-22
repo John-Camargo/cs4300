@@ -1,7 +1,10 @@
+# import sys and os to establish path to task file
 import sys, os, pytest
 
+# establish path to task file for testing
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
+# import all functions from task file
 from task6 import word_count
 
 # function that tests if the word_count() function returns the proper word count givern both the default

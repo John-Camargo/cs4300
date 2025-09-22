@@ -4,6 +4,7 @@ import sys, os
 # establish path to task file for testing
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
+# import all functions from task file
 from task5 import get_books, print_books, first_three_books, get_student_dict, print_student_dict, get_id_by_name, get_name_by_id
 
 # function that tests if get_books() properly gets (returns) a list of books (which is a list of tuples)

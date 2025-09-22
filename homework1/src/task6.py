@@ -17,6 +17,3 @@ def word_count(filename=""):
         # return num elements in words, aka num words
         return len(words)
     
-
-print(word_count())
-print(word_count("src/task6_random_text.txt"))

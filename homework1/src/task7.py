@@ -49,9 +49,6 @@ def add_arrays(arr1 = None, arr2 = None):
         return "Arrays must both be numpy type arrays"
 
 
-
-print(add_arrays(create_2d_array(2,2), create_2d_array(2,2)))
-
 # print(create_2d_array(5))
 # print(create_2d_array())
 # print(create_2d_array("",""))

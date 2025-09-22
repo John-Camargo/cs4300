@@ -1,7 +1,10 @@
+# import sys and os to establish path to task file
 import sys, os
 
+# establish path to task file for testing
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
+# import all functions from task file
 from task3 import pos_neg_zero, prime_numbers, sum_one_to_num
 
 # function that tests is an inputted number is positive, negative, or zero 

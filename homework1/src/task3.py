@@ -59,7 +59,4 @@ def sum_one_to_num(x=100):
     # print and return total sum
     print(sum)
     return(sum)
-
-# pos_neg_zero(10)
-# prime_numbers()
-# sum_one_to_num()
+    
