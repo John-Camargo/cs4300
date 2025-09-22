@@ -1,3 +1,4 @@
+# import math to use square root function for range creation in prime numbers()
 import math
 
 # function that determines if passed value is positive, negative, or zero
@@ -12,6 +13,7 @@ def pos_neg_zero(x):
     elif x == 0:
         return 0
 
+# function that computes and prints the fist 10 (at least) prime numbers
 def prime_numbers(x=10):
     # list to store first x prime numbers
     prime_list = []

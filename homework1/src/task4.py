@@ -1,5 +1,5 @@
 # function that calculates a total price based off of original price and discount
-def calculate_discount(price, percentage):
+def calculate_discount(price=None, percentage=None):
     # validation to ensure price and percentage are numeric
     if isinstance(price, (int, float)) and isinstance(percentage, (int, float)):
         # calculate discount to be reduced from the price (convert passed number to decimal value for percentage, multiply by price)
@@ -9,6 +9,7 @@ def calculate_discount(price, percentage):
         # print and return total price
         print(total)
         return total
+    # if price and/or percentage non-numeric, return 0
     else:
         return 0
     
