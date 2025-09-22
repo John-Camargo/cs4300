@@ -1,3 +1,5 @@
+# task2.py
+
 # function that computes and returns a boolean value
 def Bool():
     return True and False

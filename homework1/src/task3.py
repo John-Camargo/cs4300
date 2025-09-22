@@ -1,3 +1,5 @@
+# task3.py
+
 # import math to use square root function for range creation in prime numbers()
 import math
 
@@ -59,4 +61,4 @@ def sum_one_to_num(x=100):
     # print and return total sum
     print(sum)
     return(sum)
-    
+
