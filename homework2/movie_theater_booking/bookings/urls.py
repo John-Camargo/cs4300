@@ -9,7 +9,7 @@ from bookings import views
 from rest_framework.routers import DefaultRouter
 
 
-# create the router and register the Movie/Seat/Booking viewsets
+# create the router and register the Movie/Seat/Booking viewsets to the router
 router = DefaultRouter()
 router.register(r'movies', views.MovieViewSet, basename='movie')
 router.register(r'seats', views.SeatViewSet, basename='seat')
