@@ -1,0 +1,30 @@
+{% extends "bookings/base.html" %}
+{% block title %}Now Playing - Movie List{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Available Movies</h2>
+
+{% if movies %}
+    <ul class="list-group">
+        {% for movie in movies %}
+            <li class="list-group-item">
+                <!-- used chatGPT for spacing/justification tips/help -->
+                <div class="d-flex justify-content-between align-items-start">
+                    <div class="me-3">
+                        <h5 class="mb-1">{{ movie.title }}</h5>
+                        <p class="mb-2 text-muted">{{ movie.description }}</p>
+                        {% if movie.duration %}
+                            <span class="badge bg-secondary">{{ movie.duration }} min</span>
+                        {% endif %}
+                    </div>
+                    <div class="text-nowrap">
+                        <a href="{% url 'book_seat' movie.id %}" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <div class="alert alert-info">No movies are currently available.</div>
+{% endif %}
+{% endblock %}

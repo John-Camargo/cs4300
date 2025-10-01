@@ -18,7 +18,7 @@ class Seat(models.Model):
     booked = models.BooleanField(default = False)
 
     def __str__(self):
-        return f"Seat {self.seat_number} - {'Booked' if self.is_booked else 'Available'}"
+        return f"Seat {self.seat_number} - {'Booked' if self.booked else 'Available'}"
 
 # booking model with movie, seat, user, and booking date fields
 class Booking(models.Model):

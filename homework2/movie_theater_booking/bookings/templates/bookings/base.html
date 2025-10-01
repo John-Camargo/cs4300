@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset = "utf-8">
+        <title>{% block title %}Movie Theater Booking{% endblock %}</title>
+
+        <!-- bootstrap CSS CDN -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- used ChatGPT assistance for this, just allows for the child/other pages to inject page-specific assets -->
+        {% block extra_head %}{% endblock %}
+    </head>
+    <body class="bg-light">
+        <!-- create a flex container (for nice portions/dsiplay)-->
+        <div class="d-flex">
+            <!-- creating the (responsive) navbar using bootstrap -->
+            <nav class="bg-primary text-white p-5 vh-100" style="width: 300px;">
+                <h3 class="mb-4">Book Movies Here!</h3>
+                <ul class="nav flex-column">
+                    <!-- creating clickable links to other pages from navbar -->
+                    <li class="nav-item mb-4">
+                        <a href="{% url 'movie_list' %}" class="nav-link text-white">Showing Now</a>
+                    </li>
+                    <li class="nav-item mb-4">
+                        <a href="{% url 'seat_booking' %}" class="nav-link text-white">Book a Movie!</a>
+                    </li>
+                    <li class="nav-item mb-4">
+                        <a href="{% url 'booking_history' %}" class="nav-link text-white">My Bookings</a>
+                    </li>
+                </ul>
+            </nav>
+    
+            <!-- homepage -->
+            <main class="container-fluid p-5">
+            {% block content %}{% endblock %}
+            </main>
+        </div>
+    
+        <!-- bootstrap JS CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+        {% block extra_js %}{% endblock %}
+    </body>
+</html>
