@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+# additional imports for deployment on Render
+import os
+import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,14 +27,34 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-fkqrg_i1ijug8%e+q9ljw0m^$o0#mg1xon+pep=6erb4=exk2v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+
 
 ALLOWED_HOSTS = [
     "app-jcamargoenvironment-19.devedu.io",
     "localhost",
     "127.0.0.1",
     "0.0.0.0",
+    ".onrender.com",
 ]
+
+
+# Behind Render’s proxy, tell Django requests are HTTPS
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+
+
+# used ChatGPT to create the below block of code for deploying to Render
+# CSRF (important for admin/login). Wildcard for Render + any extra you pass.
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.onrender.com",
+    "http://app-jcamargoenvironment-19.devedu.io",
+    "https://app-jcamargoenvironment-19.devedu.io",
+]
+_extra_csrf = os.environ.get("CSRF_TRUSTED_ORIGINS")
+if _extra_csrf:
+    CSRF_TRUSTED_ORIGINS += [o.strip() for o in _extra_csrf.split(",") if o.strip()]
 
 
 # Application definition
@@ -43,15 +67,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # app for the movie theather booking project
-    'bookings'
+    'bookings',
+    'rest_framework',
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://app-jcamargoenvironment-19.devedu.io",
-]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # serve static files
+    'whitenoise.middleware.WhiteNoiseMiddleware',  
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -59,6 +83,33 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Static files via WhiteNoise
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    }
+}
+
+# Database (Render will inject DATABASE_URL); use DATABASE_URL if dj_database_url is available, else sqlite
+if dj_database_url:
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+            conn_max_age=600,
+            ssl_require=False,
+        )
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+
 
 ROOT_URLCONF = 'movie_theater_booking.urls'
 
@@ -84,12 +135,12 @@ WSGI_APPLICATION = 'movie_theater_booking.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -126,7 +177,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
