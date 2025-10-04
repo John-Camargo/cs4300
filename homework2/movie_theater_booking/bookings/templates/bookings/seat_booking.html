@@ -1,0 +1,106 @@
+<!-- some parts of this code were generated using AI and my previously created base/movie_list/.html files -->
+
+{% extends "bookings/base.html" %}
+{% block title %}Book a Seat{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Book a Seat</h2>
+
+<!-- if no movie has been selected, show a simple selector -->
+{% if not selected_movie %}
+    <form method="get" action="{% url 'seat_booking' %}" class="row g-3">
+        <div class="col-md-6">
+            <label for="movie" class="form-label">Choose a movie</label>
+            <select id="movie" name="movie_id" class="form-select" required>
+                <option value="" selected disabled>-- Select a movie --</option>
+                {% for m in movies %}
+                    <option value="{{ m.id }}">{{ m.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary">Continue</button>
+        </div>
+    </form>
+
+{% else %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title mb-1">{{ selected_movie.title }}</h5>
+            {% if selected_movie.duration %}
+                <span class="badge bg-secondary me-2">{{ selected_movie.duration }} min</span>
+            {% endif %}
+            {% if selected_movie.release_date %}
+                <span class="badge bg-light text-dark">Release: {{ selected_movie.release_date }}</span>
+            {% endif %}
+            {% if selected_movie.description %}
+                <p class="mt-3 mb-0 text-muted">{{ selected_movie.description }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <form method="post" action="{% url 'book_seat' selected_movie.id %}">
+        {% csrf_token %}
+
+        {# Optional: capture a display name WITHOUT creating accounts/sessions #}
+        <div class="mb-3">
+            <label for="user" class="form-label">Your name (optional)</label>
+            <input type="text" id="user" name="user" class="form-control" placeholder="e.g., Alex">
+      
+            <div class="form-text">Used only to label this booking; no login required.</div>
+        </div>
+
+        {# Seat grid #}
+        <div class="mb-2 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Pick a seat</h5>
+            <div class="small text-muted">
+                <span class="me-3"><span class="badge bg-secondary"> </span> Available</span>
+                <span class="me-3"><span class="badge bg-success"> </span> Selected</span>
+                <span><span class="badge bg-danger"> </span> Booked</span>
+            </div>
+        </div>
+
+        {% if seats %}
+            <div class="d-grid gap-2" style="grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));">
+                {% for seat in seats %}
+                    <input type="radio"
+                        class="btn-check" name="seat_id" id="seat-{{ seat.id }}" value="{{ seat.id }}" {% if seat.booked %}disabled{% endif %}>
+                    <label class="btn {% if seat.booked %}btn-danger disabled{% else %}btn-secondary{% endif %}" for="seat-{{ seat.id }}">
+                        Seat {{ seat.seat_number }}
+                    </label>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">No seats defined for this movie yet.</div>
+        {% endif %}
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary" {% if not seats %}disabled{% endif %}>Confirm Booking</button>
+            <a href="{% url 'seat_booking' %}" class="btn btn-outline-secondary ms-2">Change Movie</a>
+        </div>
+    </form>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Toggle selected state style (purely visual) — Bootstrap btn-check handles checked styling,
+// this keeps booked seats red and available seats switching to "success" once chosen.
+document.addEventListener('change', function(e) {
+    if (e.target && e.target.matches('input.btn-check[name="seat_id"]')) {
+        const labels = document.querySelectorAll('label[for^="seat-"]');
+        labels.forEach(lab => {
+            if (!lab.classList.contains('disabled')) {
+                lab.classList.remove('btn-success');
+                lab.classList.add('btn-secondary');
+            }
+        });
+        const chosen = document.querySelector(`label[for="${e.target.id}"]`);
+        if (chosen && !chosen.classList.contains('disabled')) {
+            chosen.classList.remove('btn-secondary');
+            chosen.classList.add('btn-success');
+        }
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,52 @@
+<!-- some parts of this code were generated using AI and my previously created base/movie_list/.html files -->
+
+{% extends "bookings/base.html" %}
+{% block title %}My Bookings{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Booking History</h2>
+
+<form method="get" action="{% url 'booking-ui' %}" class="row g-3 mb-4">
+    <div class="col-md-6">
+        <label for="q" class="form-label">Filter by name (optional)</label>
+        <input type="text" id="q" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="Type a name, then Search">
+    </div>
+    <div class="col-md-6 d-flex align-items-end gap-2">
+        <button class="btn btn-primary" type="submit">Search</button>
+        <a class="btn btn-outline-secondary" href="{% url 'booking-ui' %}">Clear</a>
+    </div>
+</form>
+
+{% if bookings %}
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Movie</th>
+                    <th scope="col">Seat</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Booked On</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in bookings %}
+                    <tr>
+                        <td>{{ b.movie.title }}</td>
+                        <td>Seat {{ b.seat.seat_number }}</td>
+                        <td>{{ b.user|default:"—" }}</td>
+                        <td>{{ b.booking_date|date:"Y-m-d" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        {% if request.GET.q %}
+            No bookings found for "<strong>{{ request.GET.q }}</strong>".
+        {% else %}
+            No bookings yet.
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}

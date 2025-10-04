@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-fkqrg_i1ijug8%e+q9ljw0m^$o0#mg1xon+pep=6erb4=exk2v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "app-jcamargoenvironment-19.devedu.io",
+    "localhost",
+    "127.0.0.1",
+    "0.0.0.0",
+]
 
 
 # Application definition
@@ -39,6 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # app for the movie theather booking project
     'bookings'
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://app-jcamargoenvironment-19.devedu.io",
 ]
 
 MIDDLEWARE = [
