@@ -8,7 +8,7 @@
 
 <!-- if no movie has been selected, show a simple selector -->
 {% if not selected_movie %}
-    <form method="get" action="{% url 'seat_booking' %}" class="row g-3">
+    <form method="get" action="{% url 'movie-ui' %}" class="row g-3">
         <div class="col-md-6">
             <label for="movie" class="form-label">Choose a movie</label>
             <select id="movie" name="movie_id" class="form-select" required>
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <form method="post" action="{% url 'book_seat' selected_movie.id %}">
+    <form method="post" action="{% url 'movie-book' selected_movie.id %}">
         {% csrf_token %}
 
         {# Optional: capture a display name WITHOUT creating accounts/sessions #}
@@ -76,7 +76,7 @@
 
         <div class="mt-4">
             <button type="submit" class="btn btn-primary" {% if not seats %}disabled{% endif %}>Confirm Booking</button>
-            <a href="{% url 'seat_booking' %}" class="btn btn-outline-secondary ms-2">Change Movie</a>
+            <a href="{% url 'movie-ui' %}" class="btn btn-outline-secondary ms-2">Change Movie</a>
         </div>
     </form>
 {% endif %}
