@@ -2,7 +2,7 @@ services:
   - type: web
     name: movie-booking
     runtime: python
-    # rootDir: homework2/movie_theater_booking   # keep if manage.py is in a subfolder
+    rootDir: homework2/movie_theater_booking
 
     buildCommand: |
       pip install -r requirements.txt
