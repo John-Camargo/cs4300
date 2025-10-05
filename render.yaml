@@ -2,17 +2,13 @@ services:
   - type: web
     name: movie-booking
     runtime: python
-    rootDir: homework2/movie_theater_booking
-
+    rootDir: homework2/movie_theater_booking   # keep if your manage.py is in a subfolder
     buildCommand: |
       pip install -r requirements.txt
       python manage.py collectstatic --noinput
-
-    startCommand: gunicorn movie_theater_booking.wsgi:application --bind 0.0.0.0:$PORT
-
-    # Run migrations on each deploy
-    preDeployCommand: python manage.py migrate
-
+    startCommand: |
+      python manage.py migrate --noinput && \
+      gunicorn movie_theater_booking.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.3
@@ -30,7 +26,6 @@ services:
         fromDatabase:
           name: movie-booking-db
           property: connectionString
-
     plan: free
     autoDeploy: true
 
