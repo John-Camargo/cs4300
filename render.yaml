@@ -2,8 +2,7 @@ services:
   - type: web
     name: movie-booking
     runtime: python
-    # If your repo root is not the folder with manage.py, add this:
-    # rootDir: homework2/movie_theater_booking
+    rootDir: homework2/movie_theater_booking
 
     buildCommand: |
       pip install -r requirements.txt
@@ -11,7 +10,7 @@ services:
 
     startCommand: gunicorn movie_theater_booking.wsgi:application --bind 0.0.0.0:$PORT
 
-    # ✅ Run migrations on each deploy
+    # Run migrations on each deploy
     preDeployCommand: python manage.py migrate
 
     envVars:
