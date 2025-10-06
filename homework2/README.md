@@ -272,3 +272,13 @@ Static files (WhiteNoise):
     - Click Book Now on a movie → select a seat → submit
     - View Booking History: /api/bookings/ui/?q=<name> (optional filter)
     - JSON APIs available under /api/… for programmatic access.
+
+
+# (Main) Resources Used
+https://docs.djangoproject.com/en/5.2/
+https://www.django-rest-framework.org/
+https://getbootstrap.com/docs/5.3/getting-started/introduction/
+https://docs.djangoproject.com/en/5.2/topics/testing/
+https://getbootstrap.com/docs/5.3/layout/grid/
+https://www.w3schools.com/html/
+https://www.w3schools.com/html/html_comments.asp
